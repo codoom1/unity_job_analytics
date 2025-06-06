@@ -7,3 +7,4 @@ matplotlib
 seaborn
 streamlit
 scikit-learn
+xgboost
