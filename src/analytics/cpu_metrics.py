@@ -1,3 +1,15 @@
+"""
+cpu_metrics.py
+--------------
+This module provides the CPUMetrics class for analyzing pure CPU jobs from a Slurm database.
+
+Classes:
+    - CPUMetrics: Methods for loading, filtering, and reporting on CPU job usage and statistics.
+
+Usage:
+    Run as a script with Fire to access command-line methods.
+"""
+
 import duckdb
 from datetime import datetime, timedelta
 import pandas as pd
