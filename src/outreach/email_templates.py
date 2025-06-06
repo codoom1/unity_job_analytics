@@ -1,3 +1,12 @@
+"""
+email_templates.py
+-----------------
+This module provides email templates for outreach and communication.
+Templates may be used for user notifications, reports, or automated messages.
+
+Update this docstring as you add or modify templates or functions in this file.
+"""
+
 def generate_email(user, jobs):
     """Generate a personalized outreach email for a user with underutilized GPU jobs."""
     job_list = '\n'.join([f"- JobID {j['JobID']}: {j['GPUMemUsage']/(2**30):.1f} GB used" for j in jobs])
