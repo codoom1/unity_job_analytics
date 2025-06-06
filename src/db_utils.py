@@ -1,3 +1,12 @@
+"""
+db_utils.py
+-----------
+This module provides utility functions for database operations, such as connecting to databases,
+executing queries, and handling data retrieval for the analytics pipeline.
+
+Update this docstring as you add or modify functions/classes in this file.
+"""
+
 import duckdb
 import pandas as pd
 

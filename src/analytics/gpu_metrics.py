@@ -1,3 +1,15 @@
+"""
+gpu_metrics.py
+-------------
+This module provides functions and/or classes for analyzing GPU job metrics.
+
+Typical functions may include:
+    - Loading and filtering GPU job data
+    - Calculating GPU utilization statistics
+    - Reporting or visualizing GPU job usage
+
+Update this docstring as you add or modify functions/classes in this file.
+"""
 
 import duckdb
 import pandas as pd
@@ -164,6 +176,7 @@ class GPUMetrics:
         else:
             print(summary["% wasted"].describe())
             print(summary.rename(columns={"GPUHours": "Total GPU Hours", "WastedHours": "Wasted GPU Hours"}).to_markdown(tablefmt="grid", floatfmt=".1f"))
+
         if vram:
             print("VRAM breakdown")
             vramdf = gb[["GPUMemUsage", "ReqVRAM"]].describe()

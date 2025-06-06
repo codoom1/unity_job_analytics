@@ -6,6 +6,15 @@ This tool identifies users with underutilized GPU jobs and generates personalize
 outreach emails similar to zero_gpu_usage_list.py but with enhanced functionality.
 """
 
+"""
+email_outreach.py
+----------------
+This module provides functions and/or classes for sending outreach emails to users or groups.
+It may include logic for composing, sending, and tracking email communications.
+
+Update this docstring as you add or modify functions/classes in this file.
+"""
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
