@@ -5,3 +5,5 @@ fire
 tabulate
 matplotlib
 seaborn
+streamlit
+scikit-learn
