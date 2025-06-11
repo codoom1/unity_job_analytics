@@ -1,2 +1,4 @@
 data/raw/slurm_data.db
+data/raw/slurm_data_small.db
 data/processed/csv_output/slurm_data.csv
+data/processed/csv_output/jobs.csv
