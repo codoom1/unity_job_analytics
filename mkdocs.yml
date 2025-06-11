@@ -1,0 +1,116 @@
+site_name: SLURM Job Analytics Documentation
+site_description: Comprehensive documentation for the SLURM Job Analytics project
+site_author: DS4CG Team
+site_url: https://your-username.github.io/ds4cg-job-analytics
+
+# Repository
+repo_name: ds4cg-job-analytics
+repo_url: https://github.com/your-username/ds4cg-job-analytics
+
+# Docs directory
+docs_dir: docs_new
+
+# Configuration
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+# Plugins
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_toc_entry: false
+            merge_init_into_class: true
+  - mkdocs-jupyter:
+      include_source: true
+      execute: false
+
+# Extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Documentation Guide: getting-started/documentation-guide.md
+  - User Guide:
+    - Dashboard: user-guide/dashboard.md
+    - Command Line Tools: user-guide/command-line-tools.md
+    - Jupyter Notebooks: user-guide/jupyter-notebooks.md
+    - Email Outreach: user-guide/email-outreach.md
+  - API Reference:
+    - Analytics Module: api-reference/analytics.md
+    - Dashboard Module: api-reference/dashboard.md
+    - Outreach Module: api-reference/outreach.md
+  - Technical Notes:
+    - Date Filtering Fixes: technical-notes/date-filtering-fixes.md
+    - Database Schema: technical-notes/database-schema.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Testing: development/testing.md
+
+# Additional configuration
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/your-username/ds4cg-job-analytics
+  generator: false
+
+# Watch additional files for changes during development
+watch:
+  - src/

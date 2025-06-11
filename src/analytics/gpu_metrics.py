@@ -15,6 +15,7 @@ import duckdb
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 from datetime import datetime, timedelta
 from fire import Fire
 
@@ -47,22 +48,34 @@ class GPUMetrics:
     """A class for computing and plotting metrics about GPU jobs."""
     
     def __init__(self,
-                 metricsfile="../../data/raw/slurm_data_small.db",
+                 metricsfile=None,
                  min_elapsed=600
                 ):
         """Initialize metrics"""
         
+        # If no metricsfile is provided, use default path relative to script location
+        if metricsfile is None:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(os.path.dirname(script_dir))
+            metricsfile = os.path.join(project_root, "data", "raw", "slurm_data.db")
+        
         self.con = duckdb.connect(metricsfile)
         # TODO - handle array jobs properly
         df = self.con.query(
-            "select GPUs, GPUMemUsage, GPUComputeUsage, GPUType, Elapsed, "
+            "select GPUs,GPUType, GPUMemUsage, GPUComputeUsage,CPUs, CPUMemUsage, CPUComputeUsage, Elapsed, "
             "StartTime,"
             "StartTime-SubmitTime as Queued, TimeLimit, Interactive, "
             "IsArray, JobID, ArrayID, Status, Constraints, Partition, User, Account from Jobs "
             f"where GPUs > 0 and Elapsed>{int(min_elapsed)} and GPUType is not null "
             " and Status != 'CANCELLED' and Status != 'FAILED'"
         ).to_df()
+
+        ## Here we should include Cancelled and Failed jobs, but we need to handle them properly.
+        ## Why the Elapsed time is so short? or less than 10 minutes?
+        ## This compute the requested VRAM for each job based on constraints.
+        ## And how does contraints relate to requested VRAM?
         df["requested_vram"] = df["Constraints"].apply(lambda c: get_requested_vram(c))
+        
         df["allocated_vram"] = df["GPUType"].apply(lambda x: min(ram_map[t] for t in x))
         df["user_jobs"] = df.groupby("User")["User"].transform('size')
         df["account_jobs"] = df.groupby("Account")["Account"].transform('size')

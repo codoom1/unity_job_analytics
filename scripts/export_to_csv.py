@@ -1,9 +1,13 @@
 import duckdb
 import os
 
-# Database path (relative to scripts directory)
-db_path = "../data/raw/slurm_data_small.db"
-output_dir = "../data/processed/csv_output"
+# Get the directory of this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+
+# Database path (absolute path based on project structure)
+db_path = os.path.join(project_root, "data", "raw", "slurm_data_small.db")
+output_dir = os.path.join(project_root, "data", "processed", "csv_output")
 
 # Connect to the database
 conn = duckdb.connect(db_path)
@@ -17,9 +21,11 @@ tables = conn.execute("SELECT table_name FROM information_schema.tables WHERE ta
 # Export each table to CSV
 for (table_name,) in tables:
     print(f"Exporting {table_name} to CSV...")
-    csv_path = f"{output_dir}/{table_name}.csv"
+    csv_path = os.path.join(output_dir, f"{table_name}.csv")
+
     query = f"COPY (SELECT * FROM {table_name}) TO '{csv_path}' (HEADER, DELIMITER ',')"
     conn.execute(query)
 
 print(f"Export complete! CSV files are in the {output_dir} directory.")
 conn.close()
+
